@@ -40,10 +40,8 @@ exports.up = async (knex) => {
         .onUpdate("CASCADE");
     })
     .createTable("spending_categories", (tbl) => {
-      tbl
-        .increments("spending_category_id")
-        .tbl.string("spending_category", 200)
-        .notNullable();
+      tbl.increments("spending_category_id");
+      tbl.string("spending_category", 200).notNullable();
     })
     .createTable("budgets", (tbl) => {
       tbl.increments("budget_id");
@@ -83,9 +81,9 @@ exports.up = async (knex) => {
 };
 
 exports.down = async (knex) => {
-  await knex.schema.dropTableIfExists("spending_categories");
   await knex.schema.dropTableIfExists("transactions");
   await knex.schema.dropTableIfExists("budgets");
+  await knex.schema.dropTableIfExists("spending_categories");
   await knex.schema.dropTableIfExists("user_joint_accounts");
   await knex.schema.dropTableIfExists("accounts");
   await knex.schema.dropTableIfExists("users");
