@@ -21,8 +21,6 @@ Then watch [this video tutorial](https://bloomtech-1.wistia.com/medias/2625bl7se
 
 ## Important Differences between SQLite and Postgres
 
-The SQLite database is a file embedded inside the project. PostgreSQL on the other hand is a full-blown server, separate from the Express server.
-
 This means Postgres and its tooling must be installed on the development machine prior to scaffolding an Express + Postgres app.
 
 Another difference is that executing migrations for the first time will not make the database pop into existance as was the case with SQLite. You must use the pgAdmin 4 GUI to create the development database by hand. Once the database exists and shows up in pgAdmin 4 you can connect to it using Knex and migrate it.
