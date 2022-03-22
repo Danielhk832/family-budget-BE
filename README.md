@@ -6,7 +6,7 @@ Then watch [this video tutorial](https://bloomtech-1.wistia.com/medias/2625bl7se
 
 **There will have been updates to this repo since the video tutorial was created, so make sure to read these instructions before watching.**
 
-## The Stack and Tool
+## The Stack and To
 
 1. Web server: [Node & Express](https://expressjs.com/)
 2. Development database: [PostgreSQL 14](https://www.postgresql.org/download/)
