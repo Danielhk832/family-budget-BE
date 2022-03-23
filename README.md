@@ -33,7 +33,7 @@ Install [Postgres](https://www.postgresql.org/download/) on your computer, takin
 
 1. Leave the default options during the Postgres installation wizard (components, location, port number).
 2. You will be asked to create a password for the superadmin "postgres" db user. Enter a simple string using only letters (e.g. "password").
-3. No need to execute the "Stack Builder" at the end of the installation. You can safely uncheck that and exit the wizard.
+3. No need to execute the "Stack Builder" at the end of the installation. You can safelyheck that and exit the wizard.
 4. The first time you open pgAdmin 4 you will be asked to create another password, this time a master password to be able to use pgAdmin.
 
 ## Starting a New Project
