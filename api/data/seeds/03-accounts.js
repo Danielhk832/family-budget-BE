@@ -1,16 +1,19 @@
 exports.seed = function (knex, Promise) {
   return knex("accounts").insert([
     {
-      balance: "Daniel One",
-      account_type: "Daniel1",
+      balance: 20000,
+      account_type: "checking",
+      owner_id: 1,
     },
     {
-      balance: "Daniel Two",
-      account_type: "Daniel2",
+      balance: 10000,
+      account_type: "cash",
+      owner_id: 1,
     },
     {
-      balance: "Daniel Three",
-      account_type: "Daniel3",
+      balance: 150,
+      account_type: "savings",
+      owner_id: 1,
     },
   ]);
 };
