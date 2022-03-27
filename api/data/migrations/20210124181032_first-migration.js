@@ -16,10 +16,19 @@ exports.up = async (knex) => {
       tbl.string("password", 200).notNullable();
       tbl.string("email", 200).unique().notNullable();
     })
+    //perhaps it is beneficial to add an admin column to the accounts table to show who has ownership and total control over the account?
     .createTable("accounts", (tbl) => {
       tbl.increments("account_id");
       tbl.integer("balance").notNullable();
       tbl.string("account_type", 200).notNullable();
+      tbl
+        .integer("owner_id")
+        .unsigned()
+        .notNullable()
+        .references("user_id")
+        .inTable("users")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
     })
     .createTable("user_joint_accounts", (tbl) => {
       tbl.increments("user_joint_account_id");
