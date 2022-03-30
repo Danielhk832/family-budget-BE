@@ -72,7 +72,7 @@ exports.up = async (knex) => {
         .inTable("accounts")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      tbl.integer("balance").notNullable();
+      tbl.integer("amount").notNullable();
       tbl
         .integer("spending_category_id")
         .unsigned()
@@ -92,6 +92,14 @@ exports.up = async (knex) => {
         .notNullable()
         .references("account_id")
         .inTable("accounts")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+      tbl
+        .integer("owner_id")
+        .unsigned()
+        .notNullable()
+        .references("user_id")
+        .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       tbl
