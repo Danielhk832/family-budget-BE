@@ -27,6 +27,8 @@ async function insertUser(user) {
 
 function findBy(filter) {
   return db("users as u")
+    .join("budgets as b", "b.owner_id", "u.user_id")
+    .join("accounts as acc", "acc.owner_id", "u.user_id")
     .select("u.user_id", "u.username", "u.password", "r.role_name")
     .where(filter);
 }
@@ -55,5 +57,4 @@ module.exports = {
   findById,
   updateUser,
   deleteUser,
-  userPunchCard,
 };
