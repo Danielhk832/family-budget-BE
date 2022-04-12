@@ -26,11 +26,19 @@ async function insertUser(user) {
 }
 
 function findBy(filter) {
-  return db("users as u")
+  const rows = await db("users as u")
     .join("budgets as b", "b.owner_id", "u.user_id")
     .join("accounts as acc", "acc.owner_id", "u.user_id")
-    .select("u.user_id", "u.username", "u.password", "r.role_name")
+    .join("spending_categories as sc", "sc.spending_category_id", "b.spending_category_id")
+    .join("user_joint_accounts as uja", "uja.user_id", "u.user_id")
+    .join("transactions as t", "t.owner_id", "u.user_id")
     .where(filter);
+
+    let result = {
+        user_id: rows[0].user_id,
+        username: rows[0].username,
+        
+    }
 }
 
 function findById(user_id) {

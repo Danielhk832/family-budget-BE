@@ -55,6 +55,7 @@ exports.up = async (knex) => {
     })
     .createTable("budgets", (tbl) => {
       tbl.increments("budget_id");
+      tbl.string("budget_name", 200);
       tbl
         .integer("owner_id")
         .unsigned()
