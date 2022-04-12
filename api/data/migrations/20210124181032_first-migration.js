@@ -21,6 +21,7 @@ exports.up = async (knex) => {
       tbl.increments("account_id");
       tbl.integer("balance").notNullable();
       tbl.string("account_type", 200).notNullable();
+      tbl.string("account_name", 200).notNullable();
       tbl
         .integer("owner_id")
         .unsigned()
@@ -30,6 +31,8 @@ exports.up = async (knex) => {
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     })
+
+    //how to set this up so that a mid-joined DB call to a user that does not appear in this table displays properly?
     .createTable("user_joint_accounts", (tbl) => {
       tbl.increments("user_joint_account_id");
       tbl

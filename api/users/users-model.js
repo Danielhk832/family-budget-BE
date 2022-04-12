@@ -25,20 +25,52 @@ async function insertUser(user) {
   return newUserObject; // { user_id: 7, username: 'foo', password: 'xxxxxxx' }
 }
 
-function findBy(filter) {
+async function findByUserid(user_id) {
   const rows = await db("users as u")
     .join("budgets as b", "b.owner_id", "u.user_id")
     .join("accounts as acc", "acc.owner_id", "u.user_id")
-    .join("spending_categories as sc", "sc.spending_category_id", "b.spending_category_id")
-    .join("user_joint_accounts as uja", "uja.user_id", "u.user_id")
+    .join(
+      "spending_categories as sc",
+      "sc.spending_category_id",
+      "b.spending_category_id"
+    )
+    // doesnt work unless leftjoined. returns a 1 otherwise... ALSO maybe this needs to be a seperate database call. including this if a user is not in any joint accounts returns a 1...
+    .leftJoin("user_joint_accounts as uja", "uja.user_id", "u.user_id")
     .join("transactions as t", "t.owner_id", "u.user_id")
-    .where(filter);
+    .select(
+      "u.user_id",
+      "u.username",
+      "u.email",
+      "u.name",
+      "b.budget_id",
+      "b.budget_name",
+      "acc.account_id",
+      "acc.account_name",
+      "sc.spending_category_id",
+      "sc.spending_category",
+      "t.transaction_id",
+      "t.transaction_type",
+      "t.amount",
+      "t.account_id",
+      "t.budget_id"
+    )
+    .where("u.user_id", user_id);
 
-    let result = {
-        user_id: rows[0].user_id,
-        username: rows[0].username,
-        
-    }
+  //need to seperate out the transactions... use another function..?
+
+  let result = {
+    user_id: rows[0].user_id,
+    username: rows[0].username,
+    email: rows[0].email,
+    name: rows[0].name,
+    budgets: [],
+    accounts: [],
+    transactions: [],
+  };
+
+  rows.forEach((item) => {});
+
+  return result;
 }
 
 function findById(user_id) {
@@ -61,7 +93,7 @@ async function deleteUser(user_id) {
 module.exports = {
   getAllUsers,
   insertUser,
-  findBy,
+  findByUserid,
   findById,
   updateUser,
   deleteUser,
