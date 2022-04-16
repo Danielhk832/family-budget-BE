@@ -68,12 +68,17 @@ async function findByUserid(user_id) {
     transactions: [],
   };
 
-  rows.forEach((item) => {});
-
   return result;
 }
 
-function findById(user_id) {
+async function getUserTransactions(user_id) {
+  const rows = db("transactions as t")
+    .join("accounts as acc", "acc.account_id", "t.account_id")
+    .leftJoin("budgets as b", "b.budget_id", "t.budget_id")
+    .where("t.owner.id", user_id);
+}
+
+async function findById(user_id) {
   return db("users as u")
     .select("u.user_id", "u.username", "u.email", "u.name")
     .where("u.user_id", user_id)
