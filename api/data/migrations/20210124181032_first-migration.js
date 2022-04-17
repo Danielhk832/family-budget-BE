@@ -67,15 +67,7 @@ exports.up = async (knex) => {
         .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      //does this need to be a foreign key? Can we just have a budget for each user that spans across multiple accounts?
-      tbl
-        .integer("account_id")
-        .unsigned()
-        .notNullable()
-        .references("account_id")
-        .inTable("accounts")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+
       tbl.integer("amount").notNullable();
       tbl
         .integer("spending_category_id")

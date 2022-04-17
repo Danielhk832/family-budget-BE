@@ -12,7 +12,7 @@ router.get("/test", async (req, res, next) => {
 });
 router.get("/test1", async (req, res, next) => {
   try {
-    const user = await Users.getUserTransactions(1);
+    const user = await Users.getUserAccounts(1);
     console.log(user);
     res.status(200).json(user);
   } catch (error) {

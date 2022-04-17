@@ -68,6 +68,14 @@ async function findByUserid(user_id) {
     transactions: [],
   };
 
+  let transactions = await getUserTransactions(user_id);
+  let budgets = await getUserBudgets(user_id);
+  let accounts = await getUserAccounts(user_id);
+
+  transactions.forEach((element) => {
+    result.transactions.push({});
+  });
+
   return rows;
 }
 
@@ -76,6 +84,26 @@ async function getUserTransactions(user_id) {
     .join("accounts as acc", "acc.account_id", "t.account_id")
     .leftJoin("budgets as b", "b.budget_id", "t.budget_id")
     .where("t.owner_id", user_id);
+
+  return rows;
+}
+
+async function getUserBudgets(user_id) {
+  const rows = db("budgets as b")
+    .join(
+      "spending_categories as sc",
+      "sc.spending_category_id",
+      "b.spending_category_id"
+    )
+    .where("b.owner_id", user_id);
+
+  return rows;
+}
+
+async function getUserAccounts(user_id) {
+  const rows = db("accounts as acc")
+    .join("user_joint_accounts as uja", "uja.account_id", "acc.account_id")
+    .where("acc.owner_id", user_id);
 
   return rows;
 }
@@ -105,4 +133,6 @@ module.exports = {
   updateUser,
   deleteUser,
   getUserTransactions,
+  getUserBudgets,
+  getUserAccounts,
 };
