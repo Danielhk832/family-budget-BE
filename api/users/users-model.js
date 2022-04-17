@@ -68,14 +68,16 @@ async function findByUserid(user_id) {
     transactions: [],
   };
 
-  return result;
+  return rows;
 }
 
 async function getUserTransactions(user_id) {
   const rows = db("transactions as t")
     .join("accounts as acc", "acc.account_id", "t.account_id")
     .leftJoin("budgets as b", "b.budget_id", "t.budget_id")
-    .where("t.owner.id", user_id);
+    .where("t.owner_id", user_id);
+
+  return rows;
 }
 
 async function findById(user_id) {
@@ -102,4 +104,5 @@ module.exports = {
   findById,
   updateUser,
   deleteUser,
+  getUserTransactions,
 };
